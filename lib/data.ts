@@ -43,7 +43,7 @@ function uid() {
 }
 
 export const defaultData: InfographicData = {
-  title: "Bahá'í Community Efforts",
+  title: "Community Efforts",
   subtitle: "A summary of activities and initiatives in our area",
   neighborhood: "Our Neighborhood",
   year: new Date().getFullYear().toString(),

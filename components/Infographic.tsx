@@ -93,7 +93,7 @@ function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
 
   return (
     <article
-      className={`relative flex flex-col rounded-[1.35rem] bg-gradient-to-b ${theme.shell} shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] ring-1 ring-black/[0.04] overflow-hidden min-h-0 print:shadow-none print:ring-1 print:ring-stone-400/60`}
+      className={`print-category-column relative flex h-full flex-col rounded-[1.35rem] bg-gradient-to-b ${theme.shell} shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] ring-1 ring-black/[0.04] overflow-hidden min-h-0 print:shadow-none print:ring-1 print:ring-stone-400/60`}
     >
       <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${theme.fade} print:h-16`} aria-hidden />
 
@@ -177,16 +177,11 @@ export default function Infographic({ data }: { data: InfographicData }) {
 
   return (
     <div
-      className={`bg-white rounded-[1.5rem] shadow-[0_20px_50px_-28px_rgba(15,23,42,0.35)] ring-1 ring-stone-200/60 px-4 py-6 sm:p-8 md:p-10 print:shadow-none print:rounded-none print:ring-0 print:px-[7mm] print:py-[5mm] print:max-w-none print:bg-white`}
+      className={`bg-white rounded-[1.5rem] shadow-[0_20px_50px_-28px_rgba(15,23,42,0.35)] ring-1 ring-stone-200/60 px-4 py-6 sm:p-8 md:p-10 print:shadow-none print:rounded-none print:ring-0 print:px-[5mm] print:py-[3mm] print:max-w-none print:bg-white`}
     >
-      {/* Magazine-style masthead (print only) */}
-      <div className="hidden print:flex flex-col items-center gap-1.5 mb-5 break-after-avoid" aria-hidden>
-        <div className="h-[2.5pt] w-[72pt] bg-stone-900" />
-        <div className="h-[0.75pt] w-[48pt] bg-stone-400" />
-      </div>
 
-      <header className="text-center mb-8 sm:mb-10 pb-6 sm:pb-8 border-b border-stone-200/80 print:mb-5 print:pb-4 print:border-stone-900/15 print:break-after-avoid">
-        <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.2em] text-stone-400 font-medium mb-2 print:mb-1.5 print:text-[7pt] print:tracking-[0.18em] print:text-stone-500">
+      <header className="text-center mb-8 sm:mb-10 pb-6 sm:pb-8 border-b border-stone-200/80 print:mb-4 print:pb-3 print:border-stone-900/15 print:break-after-avoid">
+        <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.2em] text-stone-400 font-medium mb-2 print:mb-1 print:text-[7pt] print:tracking-[0.18em] print:text-stone-500">
           {data.neighborhood} · {data.year}
         </p>
         <h1
@@ -199,19 +194,20 @@ export default function Infographic({ data }: { data: InfographicData }) {
         </p>
       </header>
 
-      <div className={`grid gap-5 sm:gap-6 md:gap-7 print:gap-3 ${gridClass}`}>
+      <div className={`grid gap-5 sm:gap-6 md:gap-7 print:gap-2.5 print:[grid-auto-rows:142mm] ${gridClass}`}>
         {data.categories.map((cat, index) => (
           <CategoryColumn key={cat.id} cat={cat} index={index} />
         ))}
       </div>
 
-      <footer className="mt-8 sm:mt-10 pt-5 border-t border-stone-100 text-center text-[0.7rem] sm:text-xs text-stone-400 tracking-wide print:mt-6 print:pt-4 print:border-stone-300 print:text-[7.5pt] print:text-stone-500 print:tracking-[0.08em]">
+      <footer className="mt-8 sm:mt-10 pt-5 border-t border-stone-100 text-center text-[0.7rem] sm:text-xs text-stone-400 tracking-wide print:hidden">
         <span className="print:font-medium">{data.neighborhood}</span>
         <span className="print:text-stone-300 print:mx-1.5">·</span>
-        <span>Bahá&apos;í Community</span>
+        <span>Community</span>
         <span className="print:text-stone-300 print:mx-1.5">·</span>
         <span>{data.year}</span>
       </footer>
+
     </div>
   );
 }

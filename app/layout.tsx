@@ -8,8 +8,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Bahá'í Infographic Builder",
-  description: "Create and share Bahá'í community infographics",
+  title: "Infographic Builder",
+  description: "Create and share infographics",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
