@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@media print {
+  /*
+   * Magazine-style spread: wide format, generous margins, color-accurate output.
+   */
+  @page {
+    size: A4 landscape;
+    margin: 11mm 12mm;
+  }
+
+  html {
+    height: auto !important;
+  }
+
+  html,
+  body {
+    background: white !important;
+    color: #1c1917;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Magazine-style paragraph rhythm when content flows across pages */
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
