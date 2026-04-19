@@ -35,14 +35,11 @@ function HomeContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6f4f1] flex flex-col print:min-h-0 print:h-auto print:bg-white">
+    <div className="flex h-dvh min-h-0 flex-col bg-[#f6f4f1] print:min-h-0 print:h-auto print:bg-white">
       <header className="bg-white/90 backdrop-blur-sm border-b border-stone-200/80 px-4 sm:px-6 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between print:hidden">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center shrink-0">
-            <span className="text-white text-xs font-bold">B</span>
-          </div>
+        <div className="flex items-center min-w-0">
           <span className="font-semibold text-stone-800 text-sm tracking-wide truncate">
-            Bahá&apos;í Infographic Builder
+            Infographic Builder
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -70,9 +67,9 @@ function HomeContent() {
         </div>
       </header>
 
-      <div className="flex flex-1 flex-col lg:flex-row overflow-hidden min-h-0 print:overflow-visible print:block print:flex-none">
+      <div className="flex min-h-0 flex-1 flex-col lg:flex-row print:overflow-visible print:block print:flex-none">
         {editorOpen && (
-          <aside className="w-full lg:w-80 lg:max-w-[20rem] bg-white border-b lg:border-b-0 lg:border-r border-stone-200 overflow-y-auto flex-shrink-0 max-h-[45vh] lg:max-h-none print:hidden">
+          <aside className="flex min-h-0 w-full shrink-0 flex-1 flex-col overflow-y-auto border-b border-stone-200 bg-white lg:h-full lg:max-w-[20rem] lg:flex-none lg:w-80 lg:border-b-0 lg:border-r print:hidden">
             <Editor data={data} onChange={setData} />
           </aside>
         )}

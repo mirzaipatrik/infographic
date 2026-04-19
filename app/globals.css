@@ -1,14 +1,22 @@
 @import "tailwindcss";
 
-@media print {
-  /*
-   * Magazine-style spread: wide format, generous margins, color-accurate output.
-   */
-  @page {
-    size: A4 landscape;
-    margin: 11mm 12mm;
+/*
+ * Print page setup + page number in the margin box.
+ * Top-level @page is more reliably parsed than nesting inside @media print.
+ * counter(page) in fixed-position ::after often prints as 0 in Chromium; margin boxes work in Chrome 131+.
+ */
+@page {
+  size: A4 landscape;
+  margin: 6mm;
+  @bottom-right {
+    content: counter(page);
+    font-size: 7pt;
+    color: #78716c;
+    letter-spacing: 0.04em;
   }
+}
 
+@media print {
   html {
     height: auto !important;
   }
@@ -24,6 +32,12 @@
   body {
     min-height: 0 !important;
     overflow: visible !important;
+  }
+
+  .print-category-column {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
   }
 
   /* Magazine-style paragraph rhythm when content flows across pages */
