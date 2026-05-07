@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test --experimental-strip-types tests/*.test.ts"
+    "test": "node --test --experimental-strip-types --experimental-default-type=module tests/*.test.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
