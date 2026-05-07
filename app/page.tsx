@@ -5,16 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Editor from "@/components/Editor";
 import Infographic from "@/components/Infographic";
 import { defaultData, InfographicData } from "@/lib/data";
-
-function parseInfographicFromSearch(searchParams: URLSearchParams): InfographicData | null {
-  const encoded = searchParams.get("data");
-  if (!encoded) return null;
-  try {
-    return JSON.parse(decodeURIComponent(encoded)) as InfographicData;
-  } catch {
-    return null;
-  }
-}
+import { createShareUrl, parseInfographicFromSearch } from "@/lib/share-url";
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -29,8 +20,7 @@ function HomeContent() {
   const handlePrint = () => window.print();
 
   const handleShare = () => {
-    const encoded = encodeURIComponent(JSON.stringify(data));
-    const url = `${window.location.origin}?data=${encoded}`;
+    const url = createShareUrl(window.location.href, data);
     navigator.clipboard.writeText(url).then(() => alert("Shareable link copied to clipboard!"));
   };
 
