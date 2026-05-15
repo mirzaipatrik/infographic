@@ -35,9 +35,11 @@
   }
 
   .print-category-column {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    -webkit-column-break-inside: avoid;
+    height: auto !important;
+    overflow: visible !important;
+    break-inside: auto;
+    page-break-inside: auto;
+    -webkit-column-break-inside: auto;
   }
 
   /* Magazine-style paragraph rhythm when content flows across pages */
