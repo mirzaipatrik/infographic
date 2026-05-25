@@ -5,16 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Editor from "@/components/Editor";
 import Infographic from "@/components/Infographic";
 import { defaultData, InfographicData } from "@/lib/data";
-
-function parseInfographicFromSearch(searchParams: URLSearchParams): InfographicData | null {
-  const encoded = searchParams.get("data");
-  if (!encoded) return null;
-  try {
-    return JSON.parse(decodeURIComponent(encoded)) as InfographicData;
-  } catch {
-    return null;
-  }
-}
+import { parseInfographicFromSearch } from "@/lib/share-url";
 
 function HomeContent() {
   const searchParams = useSearchParams();
