@@ -93,7 +93,7 @@ function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
 
   return (
     <article
-      className={`print-category-column relative flex h-full flex-col rounded-[1.35rem] bg-gradient-to-b ${theme.shell} shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] ring-1 ring-black/[0.04] overflow-hidden min-h-0 print:shadow-none print:ring-1 print:ring-stone-400/60`}
+      className={`relative flex flex-col rounded-[1.35rem] bg-gradient-to-b ${theme.shell} shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] ring-1 ring-black/[0.04] overflow-hidden min-h-0 print:h-auto print:overflow-visible print:shadow-none print:ring-1 print:ring-stone-400/60`}
     >
       <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${theme.fade} print:h-16`} aria-hidden />
 
@@ -194,7 +194,7 @@ export default function Infographic({ data }: { data: InfographicData }) {
         </p>
       </header>
 
-      <div className={`grid gap-5 sm:gap-6 md:gap-7 print:gap-2.5 print:[grid-auto-rows:142mm] ${gridClass}`}>
+      <div className={`grid gap-5 sm:gap-6 md:gap-7 print:gap-2.5 ${gridClass}`}>
         {data.categories.map((cat, index) => (
           <CategoryColumn key={cat.id} cat={cat} index={index} />
         ))}
