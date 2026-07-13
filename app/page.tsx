@@ -10,7 +10,7 @@ function parseInfographicFromSearch(searchParams: URLSearchParams): InfographicD
   const encoded = searchParams.get("data");
   if (!encoded) return null;
   try {
-    return JSON.parse(decodeURIComponent(encoded)) as InfographicData;
+    return JSON.parse(encoded) as InfographicData;
   } catch {
     return null;
   }
