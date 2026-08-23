@@ -6,7 +6,7 @@ import {
   BookOpenIcon,
   CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
-import { InfographicData, Category, CategoryColor } from "@/lib/data";
+import type { Category, CategoryColor, InfographicData } from "@/lib/data";
 
 const serif = Libre_Baskerville({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -87,8 +87,8 @@ function SectionHeading({ name }: { name: string }) {
 }
 
 function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
-  const theme = columnTheme[cat.color];
-  const Icon = iconByColor[cat.color];
+  const theme = columnTheme[cat.color] ?? columnTheme.emerald;
+  const Icon = iconByColor[cat.color] ?? iconByColor.emerald;
   const tabText = (cat.tabLabel ?? cat.title).toUpperCase();
 
   return (

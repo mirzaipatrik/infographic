@@ -1,0 +1,22 @@
+# Schema lives in migrations/ (applied once, in timestamp order).
+# Demo content lives in seed.sql (re-runnable; also runs on `supabase start`).
+# Clone path: `pnpm exec supabase link --project-ref <ref>` then `pnpm db:setup`.
+
+project_id = "infographic"
+
+[api]
+enabled = true
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[db.migrations]
+schema_paths = []
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]

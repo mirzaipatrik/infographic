@@ -1,15 +1,12 @@
 "use client";
 import {
-  InfographicData,
-  Category,
-  SubCategory,
+  CATEGORY_COLORS,
   categoryColorSwatch,
+  makeBullet,
   makeCategory,
   makeSubCategory,
-  makeBullet,
 } from "@/lib/data";
-
-const colors = ["emerald", "violet", "amber", "rose"] as const;
+import type { Category, InfographicData, SubCategory } from "@/lib/data";
 
 interface Props {
   data: InfographicData;
@@ -125,7 +122,7 @@ export default function Editor({ data, onChange }: Props) {
               {/* Color picker */}
               <div className="flex items-center gap-1">
                 <span className="text-xs text-stone-400 mr-1">Color:</span>
-                {colors.map((col) => (
+                {CATEGORY_COLORS.map((col) => (
                   <button
                     type="button"
                     key={col}

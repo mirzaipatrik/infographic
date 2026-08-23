@@ -9,7 +9,8 @@ export interface SubCategory {
   bullets: BulletPoint[];
 }
 
-export type CategoryColor = "emerald" | "violet" | "amber" | "rose";
+export const CATEGORY_COLORS = ["emerald", "violet", "amber", "rose"] as const;
+export type CategoryColor = (typeof CATEGORY_COLORS)[number];
 
 export interface Category {
   id: string;
@@ -36,6 +37,132 @@ export interface InfographicData {
   neighborhood: string;
   year: string;
   categories: Category[];
+}
+
+const MAX_ID_LENGTH = 64;
+const MAX_SHORT_TEXT = 500;
+const MAX_LONG_TEXT = 2_000;
+const MAX_CATEGORIES = 12;
+const MAX_SUBCATEGORIES = 30;
+const MAX_BULLETS = 50;
+const MAX_PAYLOAD_BYTES = 100_000;
+
+function isBoundedString(value: unknown, max: number): value is string {
+  return typeof value === "string" && value.length <= max;
+}
+
+function isCategoryColor(value: unknown): value is CategoryColor {
+  return typeof value === "string" && (CATEGORY_COLORS as readonly string[]).includes(value);
+}
+
+function parseBullet(value: unknown): BulletPoint | null {
+  if (!value || typeof value !== "object") return null;
+  const candidate = value as Partial<BulletPoint>;
+  if (!isBoundedString(candidate.id, MAX_ID_LENGTH) || !isBoundedString(candidate.text, MAX_LONG_TEXT)) {
+    return null;
+  }
+  return { id: candidate.id, text: candidate.text };
+}
+
+function parseSubCategory(value: unknown): SubCategory | null {
+  if (!value || typeof value !== "object") return null;
+  const candidate = value as Partial<SubCategory>;
+  if (
+    !isBoundedString(candidate.id, MAX_ID_LENGTH) ||
+    !isBoundedString(candidate.name, MAX_SHORT_TEXT) ||
+    !Array.isArray(candidate.bullets) ||
+    candidate.bullets.length > MAX_BULLETS
+  ) {
+    return null;
+  }
+
+  const bullets: BulletPoint[] = [];
+  for (const bullet of candidate.bullets) {
+    const parsed = parseBullet(bullet);
+    if (!parsed) return null;
+    bullets.push(parsed);
+  }
+
+  return { id: candidate.id, name: candidate.name, bullets };
+}
+
+function parseCategory(value: unknown): Category | null {
+  if (!value || typeof value !== "object") return null;
+  const candidate = value as Partial<Category>;
+  if (
+    !isBoundedString(candidate.id, MAX_ID_LENGTH) ||
+    !isBoundedString(candidate.title, MAX_SHORT_TEXT) ||
+    !isCategoryColor(candidate.color) ||
+    !Array.isArray(candidate.subcategories) ||
+    candidate.subcategories.length > MAX_SUBCATEGORIES
+  ) {
+    return null;
+  }
+
+  if (candidate.tabLabel !== undefined && !isBoundedString(candidate.tabLabel, MAX_SHORT_TEXT)) {
+    return null;
+  }
+  if (candidate.description !== undefined && !isBoundedString(candidate.description, MAX_LONG_TEXT)) {
+    return null;
+  }
+
+  const subcategories: SubCategory[] = [];
+  for (const subcategory of candidate.subcategories) {
+    const parsed = parseSubCategory(subcategory);
+    if (!parsed) return null;
+    subcategories.push(parsed);
+  }
+
+  return {
+    id: candidate.id,
+    title: candidate.title,
+    tabLabel: candidate.tabLabel,
+    description: candidate.description,
+    color: candidate.color,
+    subcategories,
+  };
+}
+
+/** Returns a typed copy when `value` matches InfographicData; otherwise null. */
+export function parseInfographicData(value: unknown): InfographicData | null {
+  if (!value || typeof value !== "object") return null;
+
+  try {
+    if (JSON.stringify(value).length > MAX_PAYLOAD_BYTES) return null;
+  } catch {
+    return null;
+  }
+
+  const candidate = value as Partial<InfographicData>;
+  if (
+    !isBoundedString(candidate.title, MAX_SHORT_TEXT) ||
+    !isBoundedString(candidate.subtitle, MAX_LONG_TEXT) ||
+    !isBoundedString(candidate.neighborhood, MAX_SHORT_TEXT) ||
+    !isBoundedString(candidate.year, 32) ||
+    !Array.isArray(candidate.categories) ||
+    candidate.categories.length > MAX_CATEGORIES
+  ) {
+    return null;
+  }
+
+  const categories: Category[] = [];
+  for (const category of candidate.categories) {
+    const parsed = parseCategory(category);
+    if (!parsed) return null;
+    categories.push(parsed);
+  }
+
+  return {
+    title: candidate.title,
+    subtitle: candidate.subtitle,
+    neighborhood: candidate.neighborhood,
+    year: candidate.year,
+    categories,
+  };
+}
+
+export function isInfographicData(value: unknown): value is InfographicData {
+  return parseInfographicData(value) !== null;
 }
 
 function uid() {

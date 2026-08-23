@@ -3,13 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "tsx scripts/gen-types.ts && next dev",
+    "dev:no-types": "next dev",
+    "gen-types": "tsx scripts/gen-types.ts",
+    "db:setup": "tsx scripts/setup-db.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
+  "packageManager": "pnpm@10.34.4",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -19,9 +25,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "supabase": "^2.115.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.12",
+    "type-fest": "^5.8.0",
     "typescript": "^5"
   }
 }
