@@ -12,7 +12,14 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "lib/database.types.ts",
   ]),
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "@typescript-eslint/consistent-type-imports": "warn",
+    },
+  },
 ]);
 
 export default eslintConfig;
