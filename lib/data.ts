@@ -161,6 +161,28 @@ export function parseInfographicData(value: unknown): InfographicData | null {
   };
 }
 
+/**
+ * Maps a public `infographics` query to published content.
+ * Throws on error, missing row, or invalid JSON so `'use cache'`
+ * callers do not persist fallback demo data as if it were published.
+ */
+export function publishedInfographicFromQuery(
+  data: { content: unknown } | null | undefined,
+  error: { message: string } | null | undefined,
+): InfographicData {
+  if (error) {
+    throw new Error(`Failed to load infographic: ${error.message}`);
+  }
+  if (!data?.content) {
+    throw new Error("Published infographic row is missing.");
+  }
+  const parsed = parseInfographicData(data.content);
+  if (!parsed) {
+    throw new Error("Published infographic content is invalid.");
+  }
+  return parsed;
+}
+
 export function isInfographicData(value: unknown): value is InfographicData {
   return parseInfographicData(value) !== null;
 }
