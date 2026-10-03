@@ -153,18 +153,17 @@ To be able to revalidate the cached infographic after an admin save, we use a sm
 
 To see the tags used in the project, check [lib/cache.ts](./lib/cache.ts).
 
-The project uses Next.js Cache Components (`cacheComponents: true` in `next.config.ts`). The published infographic is loaded in a `'use cache'` function, tagged with `INFOGRAPHIC_CACHE_TAGS`, and invalidated from the save server action via `updateTag()` (read-your-own-writes).
+The project uses Next.js Cache Components (`cacheComponents: true` in `next.config.ts`). The published infographic is loaded in a `'use cache'` function, tagged with `INFOGRAPHIC_CACHE_TAGS`, and invalidated from the save server action via `updateTag()` (read-your-own-writes). `refresh()` then drops this session's client router cache, which `updateTag` does not touch.
 
 ### Example Usage
 
 ```tsx
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheTag } from "next/cache";
 import { INFOGRAPHIC_CACHE_TAGS } from "@/lib/cache";
 
 async function getPublishedInfographicCached() {
   "use cache";
-  cacheLife("hours");
-  INFOGRAPHIC_CACHE_TAGS.forEach((tag) => cacheTag(tag));
+  cacheTag(...INFOGRAPHIC_CACHE_TAGS);
   // fetch from Supabase…
 }
 ```
@@ -174,12 +173,13 @@ To invalidate cached data after a mutation, use `updateTag()` in a Server Action
 ```tsx
 "use server";
 
-import { updateTag } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { INFOGRAPHIC_CACHE_TAGS } from "@/lib/cache";
 
 export async function saveInfographic(/* … */) {
   // upsert to Supabase…
   INFOGRAPHIC_CACHE_TAGS.forEach((tag) => updateTag(tag));
+  refresh();
   return { ok: true as const };
 }
 ```

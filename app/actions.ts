@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { hasAdminAccess, requireAuthClaims } from "@/lib/auth";
 import { INFOGRAPHIC_CACHE_TAGS, INFOGRAPHIC_ID } from "@/lib/cache";
@@ -49,7 +49,9 @@ export async function saveInfographic(
     return { ok: false, error: "Failed to save." };
   }
 
+  // updateTag expires the server entry; refresh drops this session's client copy.
   INFOGRAPHIC_CACHE_TAGS.forEach((tag) => updateTag(tag));
+  refresh();
   return { ok: true };
 }
 

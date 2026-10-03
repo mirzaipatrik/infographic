@@ -12,7 +12,6 @@ values (
       {
         "id": "cat-social",
         "title": "Social Action",
-        "tabLabel": "Neighborhood",
         "description": "Building capacity for service and fellowship",
         "color": "emerald",
         "subcategories": [
@@ -38,7 +37,6 @@ values (
       {
         "id": "cat-discourses",
         "title": "Public Discourses",
-        "tabLabel": "Outreach",
         "description": "Conversations that enrich community life",
         "color": "violet",
         "subcategories": [
@@ -64,7 +62,6 @@ values (
       {
         "id": "cat-teaching",
         "title": "Teaching",
-        "tabLabel": "Invitation",
         "description": "Sharing the message through personal relationships",
         "color": "amber",
         "subcategories": [
@@ -90,7 +87,6 @@ values (
       {
         "id": "cat-core",
         "title": "Core Activities",
-        "tabLabel": "Gatherings",
         "description": "Study, worship, and classes for all ages",
         "color": "rose",
         "subcategories": [
