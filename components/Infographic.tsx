@@ -27,7 +27,6 @@ const columnTheme: Record<
   ColorKey,
   {
     shell: string;
-    tab: string;
     iconWrap: string;
     columnNum: string;
     fade: string;
@@ -35,28 +34,24 @@ const columnTheme: Record<
 > = {
   violet: {
     shell: "from-violet-200/80 via-violet-50/90 to-white",
-    tab: "bg-violet-500/95 text-white shadow-sm",
     iconWrap: "bg-white/80 text-violet-700 ring-1 ring-violet-200/80",
     columnNum: "text-violet-200/90",
     fade: "from-violet-300/25 to-transparent",
   },
   rose: {
     shell: "from-indigo-200/70 via-violet-50/80 to-white",
-    tab: "bg-indigo-500/95 text-white shadow-sm",
     iconWrap: "bg-white/80 text-indigo-700 ring-1 ring-indigo-200/70",
     columnNum: "text-indigo-200/90",
     fade: "from-indigo-300/20 to-transparent",
   },
   amber: {
     shell: "from-sky-200/75 via-sky-50/90 to-white",
-    tab: "bg-sky-500/95 text-white shadow-sm",
     iconWrap: "bg-white/80 text-sky-700 ring-1 ring-sky-200/80",
     columnNum: "text-sky-200/90",
     fade: "from-sky-300/25 to-transparent",
   },
   emerald: {
     shell: "from-teal-200/75 via-cyan-50/90 to-white",
-    tab: "bg-teal-600/95 text-white shadow-sm",
     iconWrap: "bg-white/80 text-teal-700 ring-1 ring-teal-200/80",
     columnNum: "text-teal-200/90",
     fade: "from-teal-300/25 to-transparent",
@@ -89,7 +84,6 @@ function SectionHeading({ name }: { name: string }) {
 function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
   const theme = columnTheme[cat.color] ?? columnTheme.emerald;
   const Icon = iconByColor[cat.color] ?? iconByColor.emerald;
-  const tabText = (cat.tabLabel ?? cat.title).toUpperCase();
 
   return (
     <article
@@ -98,15 +92,7 @@ function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
       <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${theme.fade} print:h-16`} aria-hidden />
 
       <div className="relative px-4 pt-4 sm:px-5 sm:pt-5 print:px-3 print:pt-3">
-        <div className="flex justify-start">
-          <span
-            className={`inline-flex items-center rounded-full px-3 py-1 text-[0.6rem] sm:text-[0.65rem] font-semibold tracking-[0.2em] print:px-2.5 print:py-0.5 print:text-[6.5pt] print:tracking-[0.16em] ${theme.tab}`}
-          >
-            {tabText}
-          </span>
-        </div>
-
-        <div className="flex justify-center mt-5 mb-4">
+        <div className="flex justify-center mb-4">
           <div
             className={`flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)] print:shadow-none print:h-12 print:w-12 print:rounded-xl ${theme.iconWrap}`}
           >
@@ -119,7 +105,7 @@ function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
             {cat.title}
           </h2>
           {cat.description ? (
-            <p className="mt-2 text-xs sm:text-sm text-stone-600 italic leading-relaxed max-w-[18rem] mx-auto print:text-[8pt] print:mt-1.5">
+            <p className="mt-4 mb-4 text-xs sm:text-sm text-stone-600 italic leading-relaxed max-w-[18rem] mx-auto print:text-[8pt] print:mt-2.5 print:mb-2.5">
               {cat.description}
             </p>
           ) : null}

@@ -158,13 +158,12 @@ The project uses Next.js Cache Components (`cacheComponents: true` in `next.conf
 ### Example Usage
 
 ```tsx
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheTag } from "next/cache";
 import { INFOGRAPHIC_CACHE_TAGS } from "@/lib/cache";
 
 async function getPublishedInfographicCached() {
   "use cache";
-  cacheLife("hours");
-  INFOGRAPHIC_CACHE_TAGS.forEach((tag) => cacheTag(tag));
+  cacheTag(...INFOGRAPHIC_CACHE_TAGS);
   // fetch from Supabase…
 }
 ```

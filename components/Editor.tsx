@@ -98,25 +98,14 @@ export default function Editor({ data, onChange }: Props) {
                 <button type="button" onClick={() => removeCategory(cat.id)} className="text-stone-300 hover:text-red-400 text-lg leading-none mt-1">×</button>
               </div>
 
-              <div className="grid grid-cols-1 gap-2">
-                <div>
-                  <label className="text-xs text-stone-500 block mb-0.5">Tab label</label>
-                  <input
-                    className={inputCls}
-                    value={cat.tabLabel ?? ""}
-                    onChange={(e) => updateCategory(cat.id, { tabLabel: e.target.value })}
-                    placeholder="Short label on column tab"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs text-stone-500 block mb-0.5">Column description</label>
-                  <input
-                    className={inputCls}
-                    value={cat.description ?? ""}
-                    onChange={(e) => updateCategory(cat.id, { description: e.target.value })}
-                    placeholder="Italic line under the title"
-                  />
-                </div>
+              <div>
+                <label className="text-xs text-stone-500 block mb-0.5">Column description</label>
+                <input
+                  className={inputCls}
+                  value={cat.description ?? ""}
+                  onChange={(e) => updateCategory(cat.id, { description: e.target.value })}
+                  placeholder="Italic line under the title"
+                />
               </div>
 
               {/* Color picker */}

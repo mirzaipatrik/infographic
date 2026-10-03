@@ -15,8 +15,6 @@ export type CategoryColor = (typeof CATEGORY_COLORS)[number];
 export interface Category {
   id: string;
   title: string;
-  /** Short label shown on the column tab (e.g. area name). */
-  tabLabel?: string;
   /** Italic line under the main column title. */
   description?: string;
   color: CategoryColor;
@@ -99,9 +97,6 @@ function parseCategory(value: unknown): Category | null {
     return null;
   }
 
-  if (candidate.tabLabel !== undefined && !isBoundedString(candidate.tabLabel, MAX_SHORT_TEXT)) {
-    return null;
-  }
   if (candidate.description !== undefined && !isBoundedString(candidate.description, MAX_LONG_TEXT)) {
     return null;
   }
@@ -116,7 +111,6 @@ function parseCategory(value: unknown): Category | null {
   return {
     id: candidate.id,
     title: candidate.title,
-    tabLabel: candidate.tabLabel,
     description: candidate.description,
     color: candidate.color,
     subcategories,
@@ -178,7 +172,6 @@ export const defaultData: InfographicData = {
     {
       id: uid(),
       title: "Social Action",
-      tabLabel: "Neighborhood",
       description: "Building capacity for service and fellowship",
       color: "emerald",
       subcategories: [
@@ -204,7 +197,6 @@ export const defaultData: InfographicData = {
     {
       id: uid(),
       title: "Public Discourses",
-      tabLabel: "Outreach",
       description: "Conversations that enrich community life",
       color: "violet",
       subcategories: [
@@ -230,7 +222,6 @@ export const defaultData: InfographicData = {
     {
       id: uid(),
       title: "Teaching",
-      tabLabel: "Invitation",
       description: "Sharing the message through personal relationships",
       color: "amber",
       subcategories: [
@@ -256,7 +247,6 @@ export const defaultData: InfographicData = {
     {
       id: uid(),
       title: "Core Activities",
-      tabLabel: "Gatherings",
       description: "Study, worship, and classes for all ages",
       color: "rose",
       subcategories: [
@@ -293,7 +283,6 @@ export function makeCategory(): Category {
   return {
     id: Math.random().toString(36).slice(2, 9),
     title: "New Category",
-    tabLabel: "New",
     description: "Short description for this column",
     color: "emerald",
     subcategories: [makeSubCategory()],
