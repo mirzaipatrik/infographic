@@ -9,14 +9,15 @@
     "db:setup": "tsx scripts/setup-db.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "tsx --test tests/*.test.ts tests/*.test.mjs"
   },
   "packageManager": "pnpm@10.34.4",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.3",
-    "next": "16.2.4",
+    "next": "16.2.12",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -27,7 +28,7 @@
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.2.12",
     "supabase": "^2.115.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",

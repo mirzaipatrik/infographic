@@ -34,12 +34,6 @@
     overflow: visible !important;
   }
 
-  .print-category-column {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    -webkit-column-break-inside: avoid;
-  }
-
   /* Magazine-style paragraph rhythm when content flows across pages */
   p,
   li {
